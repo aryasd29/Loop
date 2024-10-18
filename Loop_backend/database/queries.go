@@ -58,4 +58,16 @@ const (
 		event_id INTEGER REFERENCES events(event_id),
 		PRIMARY KEY (user_id, event_id)
 	)`
+	CREATE TABLE IF NOT EXISTS projects (
+		project_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+		owner_id INTEGER REFERENCES users(user_id),
+		title VARCHAR(200) CHECK (length(title) BETWEEN 3 AND 100),
+		introduction TEXT,
+		description TEXT CHECK (length(description) > 10),
+		status VARCHAR(50),
+		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+		tags VARCHAR(200)
+	);
+	
 )
+
